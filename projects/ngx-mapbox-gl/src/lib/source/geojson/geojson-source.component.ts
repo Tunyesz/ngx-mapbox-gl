@@ -23,6 +23,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   @Input() clusterRadius?: number;
   @Input() clusterMaxZoom?: number;
   @Input() clusterProperties?: any;
+  @Input() lineMetrics: boolean;
 
   updateFeatureData = new Subject();
 
@@ -172,7 +173,8 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       cluster: this.cluster,
       clusterRadius: this.clusterRadius,
       clusterMaxZoom: this.clusterMaxZoom,
-      clusterProperties: this.clusterProperties
+      clusterProperties: this.clusterProperties,
+      lineMetrics: this.lineMetrics
     });
     const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe(() => {
       const source = this.MapService.getSource<GeoJSONSource>(this.id);
