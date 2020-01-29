@@ -10,7 +10,21 @@ export class FeatureComponent implements OnInit, OnDestroy, GeoJSON.Feature<GeoJ
   /* Init inputs */
   @Input() id?: number; // FIXME number only for now https://github.com/mapbox/mapbox-gl-js/issues/2716
   @Input() geometry: GeoJSON.GeometryObject;
-  @Input() properties: any;
+
+  private _properties: any;
+  public get properties(): any {
+    return this._properties;
+  }
+  @Input()
+  public set properties(value: any) {
+    this._properties = value;
+    
+    if (this.feature) {
+      this.feature.properties = value;
+      this.GeoJSONSourceComponent.updateFeatureData.next();
+    }
+  }
+
   type: 'Feature' = 'Feature';
 
   private feature: GeoJSON.Feature<GeoJSON.GeometryObject>;
