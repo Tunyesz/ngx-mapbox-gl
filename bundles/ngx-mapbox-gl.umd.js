@@ -3477,7 +3477,8 @@
                 cluster: this.cluster,
                 clusterRadius: this.clusterRadius,
                 clusterMaxZoom: this.clusterMaxZoom,
-                clusterProperties: this.clusterProperties
+                clusterProperties: this.clusterProperties,
+                lineMetrics: this.lineMetrics
             })));
             /** @type {?} */
             var sub = this.updateFeatureData.pipe(operators.debounceTime(0)).subscribe((/**
@@ -3513,7 +3514,8 @@
             cluster: [{ type: core.Input }],
             clusterRadius: [{ type: core.Input }],
             clusterMaxZoom: [{ type: core.Input }],
-            clusterProperties: [{ type: core.Input }]
+            clusterProperties: [{ type: core.Input }],
+            lineMetrics: [{ type: core.Input }]
         };
         return GeoJSONSourceComponent;
     }());
@@ -3538,6 +3540,8 @@
         GeoJSONSourceComponent.prototype.clusterMaxZoom;
         /** @type {?} */
         GeoJSONSourceComponent.prototype.clusterProperties;
+        /** @type {?} */
+        GeoJSONSourceComponent.prototype.lineMetrics;
         /** @type {?} */
         GeoJSONSourceComponent.prototype.updateFeatureData;
         /**
@@ -3577,6 +3581,27 @@
             this.GeoJSONSourceComponent = GeoJSONSourceComponent;
             this.type = 'Feature';
         }
+        Object.defineProperty(FeatureComponent.prototype, "properties", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._properties;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._properties = value;
+                if (this.feature) {
+                    this.feature.properties = value;
+                    this.GeoJSONSourceComponent.updateFeatureData.next();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @return {?}
          */
@@ -3642,8 +3667,11 @@
         FeatureComponent.prototype.id;
         /** @type {?} */
         FeatureComponent.prototype.geometry;
-        /** @type {?} */
-        FeatureComponent.prototype.properties;
+        /**
+         * @type {?}
+         * @private
+         */
+        FeatureComponent.prototype._properties;
         /** @type {?} */
         FeatureComponent.prototype.type;
         /**

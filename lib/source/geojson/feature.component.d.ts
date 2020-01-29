@@ -4,6 +4,7 @@ export declare class FeatureComponent implements OnInit, OnDestroy, GeoJSON.Feat
     private GeoJSONSourceComponent;
     id?: number;
     geometry: GeoJSON.GeometryObject;
+    private _properties;
     properties: any;
     type: 'Feature';
     private feature;

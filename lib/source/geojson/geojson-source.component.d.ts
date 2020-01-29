@@ -15,6 +15,7 @@ export declare class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChan
     clusterRadius?: number;
     clusterMaxZoom?: number;
     clusterProperties?: any;
+    lineMetrics: boolean;
     updateFeatureData: Subject<unknown>;
     private sub;
     private sourceAdded;

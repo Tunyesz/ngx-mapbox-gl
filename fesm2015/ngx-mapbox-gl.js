@@ -2799,7 +2799,8 @@ class GeoJSONSourceComponent {
             cluster: this.cluster,
             clusterRadius: this.clusterRadius,
             clusterMaxZoom: this.clusterMaxZoom,
-            clusterProperties: this.clusterProperties
+            clusterProperties: this.clusterProperties,
+            lineMetrics: this.lineMetrics
         })));
         /** @type {?} */
         const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe((/**
@@ -2836,7 +2837,8 @@ GeoJSONSourceComponent.propDecorators = {
     cluster: [{ type: Input }],
     clusterRadius: [{ type: Input }],
     clusterMaxZoom: [{ type: Input }],
-    clusterProperties: [{ type: Input }]
+    clusterProperties: [{ type: Input }],
+    lineMetrics: [{ type: Input }]
 };
 if (false) {
     /** @type {?} */
@@ -2859,6 +2861,8 @@ if (false) {
     GeoJSONSourceComponent.prototype.clusterMaxZoom;
     /** @type {?} */
     GeoJSONSourceComponent.prototype.clusterProperties;
+    /** @type {?} */
+    GeoJSONSourceComponent.prototype.lineMetrics;
     /** @type {?} */
     GeoJSONSourceComponent.prototype.updateFeatureData;
     /**
@@ -2900,6 +2904,23 @@ class FeatureComponent {
     constructor(GeoJSONSourceComponent) {
         this.GeoJSONSourceComponent = GeoJSONSourceComponent;
         this.type = 'Feature';
+    }
+    /**
+     * @return {?}
+     */
+    get properties() {
+        return this._properties;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set properties(value) {
+        this._properties = value;
+        if (this.feature) {
+            this.feature.properties = value;
+            this.GeoJSONSourceComponent.updateFeatureData.next();
+        }
     }
     /**
      * @return {?}
@@ -2955,8 +2976,11 @@ if (false) {
     FeatureComponent.prototype.id;
     /** @type {?} */
     FeatureComponent.prototype.geometry;
-    /** @type {?} */
-    FeatureComponent.prototype.properties;
+    /**
+     * @type {?}
+     * @private
+     */
+    FeatureComponent.prototype._properties;
     /** @type {?} */
     FeatureComponent.prototype.type;
     /**
