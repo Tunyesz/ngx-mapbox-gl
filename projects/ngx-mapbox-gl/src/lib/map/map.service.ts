@@ -603,9 +603,9 @@ export class MapService {
     if (events.moveStart.observers.length) {
       this.mapInstance.on('movestart', (evt: DragEvent) => this.zone.run(() => events.moveStart.emit(evt)));
     }
-    if (events.move.observers.length) {
+    // if (events.move.observers.length) {
       this.mapInstance.on('move', (evt: MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent) => this.zone.run(() => events.move.emit(evt)));
-    }
+    // }
     if (events.moveEnd.observers.length) {
       this.mapInstance.on('moveend', (evt: DragEvent) => this.zone.run(() => events.moveEnd.emit(evt)));
     }
