@@ -1083,16 +1083,16 @@ class MapService {
              */
             () => events.moveStart.emit(evt)))));
         }
-        if (events.move.observers.length) {
-            this.mapInstance.on('move', (/**
-             * @param {?} evt
-             * @return {?}
-             */
-            (evt) => this.zone.run((/**
-             * @return {?}
-             */
-            () => events.move.emit(evt)))));
-        }
+        // if (events.move.observers.length) {
+        this.mapInstance.on('move', (/**
+         * @param {?} evt
+         * @return {?}
+         */
+        (evt) => this.zone.run((/**
+         * @return {?}
+         */
+        () => events.move.emit(evt)))));
+        // }
         if (events.moveEnd.observers.length) {
             this.mapInstance.on('moveend', (/**
              * @param {?} evt

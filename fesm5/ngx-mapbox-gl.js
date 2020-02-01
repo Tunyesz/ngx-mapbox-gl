@@ -1412,16 +1412,16 @@ var MapService = /** @class */ (function () {
              */
             function () { return events.moveStart.emit(evt); })); }));
         }
-        if (events.move.observers.length) {
-            this.mapInstance.on('move', (/**
-             * @param {?} evt
-             * @return {?}
-             */
-            function (evt) { return _this.zone.run((/**
-             * @return {?}
-             */
-            function () { return events.move.emit(evt); })); }));
-        }
+        // if (events.move.observers.length) {
+        this.mapInstance.on('move', (/**
+         * @param {?} evt
+         * @return {?}
+         */
+        function (evt) { return _this.zone.run((/**
+         * @return {?}
+         */
+        function () { return events.move.emit(evt); })); }));
+        // }
         if (events.moveEnd.observers.length) {
             this.mapInstance.on('moveend', (/**
              * @param {?} evt
